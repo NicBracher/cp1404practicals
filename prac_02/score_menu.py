@@ -1,67 +1,73 @@
 """
-CP1404/CP5632 - Practical - Nicholas Bracher
+CP1404/CP5632 - Practical 2 - Nicholas Bracher
+
+Menu driven program that uses functions to take a user input, determine and output corresponding grade.
 """
 
 MENU = "\n(G)et valid score\n(P)rint grade result\n(S)how stars\n(Q)uit\n"
 
 
 def main():
-    user_score = 0
+    """Control main body through menu driven user interaction and fucntion calls."""
 
-    print(
+    user_score = None
+    choice = get_menu_selection(
         f"Welcome to the score menu! \nPlease choose from the below options: \n{MENU}"
     )
-    choice = input(">>> ").upper()
 
     while choice != "Q":
 
         if choice == "G":
-            user_score = get_valid_input("\nEnter score: ")
-            print(f"Score {user_score} recorded.")
-
-            print(MENU)
-            choice = input(">>> ").upper()
+            user_score = get_valid_score("\nEnter score: ", 0, 100)
+            print(f"\n-> Score {user_score} recorded.")
+            choice = get_menu_selection(MENU)
 
         elif choice == "P":
-            grade = calculate_grade(user_score)
-            print(f"\n-> Score: {user_score} \n-> Grade: {grade}\n")
-
-            print(MENU)
-            choice = input(">>> ").upper()
+            if user_score == None:
+                choice = get_menu_selection("Please input your score first. \n")
+            else:
+                grade = calculate_grade(user_score)
+                print(f"\n-> Score: {user_score} \n-> Grade: {grade}")
+                choice = get_menu_selection(MENU)
 
         elif choice == "S":
-            print("*" * user_score)
-
-            print(MENU)
-            choice = input(">>> ").upper()
-
-        else:
-            print(f"\nInvalid choice. Please choose between: \n{MENU}")
-            choice = input(">>> ").upper()
+            if user_score == None:
+                choice = get_menu_selection("Please input your score first. \n")
+            else:
+                print("*" * user_score)
+                choice = get_menu_selection(MENU)
 
     print("Thank you for using the score menu. Goodbye!")
 
 
-def get_valid_input(prompt):
+def get_menu_selection(prompt):
+    """Get a valid menu selection input from the user."""
+    print(prompt)
+    choice = choice = input(">>> ").upper()
+
+    while choice != "Q" and choice != "G" and choice != "P" and choice != "S":
+        print(f"\nInvalid choice. Please choose between: \n{MENU}")
+        choice = input(">>> ").upper()
+    return choice
+
+
+def get_valid_score(prompt, low, high):
     """Get a valid score from the user."""
-    score_value = int(input(prompt))
+    score = int(input(prompt))
 
-    while score_value < 0 or score_value > 100:
-        print("Invalid score. Please enter a score between 0 and 100.")
-        score_value = int(input(prompt))
-
-    return score_value
+    while score < low or score > high:
+        print(f"Invalid score. Please enter a score between {low} and {high}.")
+        score = int(input(prompt))
+    return score
 
 
 def calculate_grade(score):
-    if score < 0 or score > 100:
-        return "Invalid score"
-    elif score < 50:
+    """Calculate grade from given score."""
+    if score < 50:
         return "Bad"
     elif score < 90:
         return "Pass"
-    else:
-        return "Excellent"
+    return "Excellent"
 
 
 main()

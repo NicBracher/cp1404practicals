@@ -1,57 +1,64 @@
 """
-CP1404/CP5632 - Practical - nicholas Bracher
+CP1404/CP5632 - Practical 2 - Nicholas Bracher
 
-Pseudocode for temperature conversion:
+Temperature conversion program.
 
-else if choice == 'F'
-fahrenheit = get input 'Fahrenheit: '
-celsius = 5 / 9 * (fahrenheit - 32)
-display 'Result: (celsius)'
+EDIT 19/09/2025: Addition of functions to prac_01 temperatures.py
 """
+
+MENU = """C - Convert Celsius to Fahrenheit \nF - Convert Fahrenheit to Celsius \nQ - Quit"""
 
 
 def main():
-    MENU = """C - Convert Celsius to Fahrenheit \nF - Convert Fahrenheit to Celsius \nQ - Quit"""
-
-    print(MENU)
-    choice = input(">>> ").upper()
+    """Take user menu selection and use the appropiate conversion function to display converted temperature."""
+    choice = get_menu_selection(MENU)
 
     while choice != "Q":
 
         if choice == "C":
             celsius = get_valid_input("Enter temperature in Celsius: ")
-            fahrenheit = convert_temperature(choice, celsius)
-            print(f"Result: {fahrenheit:.2f} F")
+            converted_temperature = convert_celsius_to_fahrenheit(celsius)
+            print(f"Result: {converted_temperature:.1f} F")
 
         elif choice == "F":
             fahrenheit = get_valid_input("Enter temperature in Fahrenheit: ")
-            fahrenheit = convert_temperature(choice, fahrenheit)
-            print(f"Result: {celsius:.1f} C")
+            converted_temperature = convert_fahrenheit_to_celsius(fahrenheit)
+            print(f"Result: {converted_temperature:.1f} C")
 
-        else:
-            print("Invalid option")
-
-        print(MENU)
-        choice = input(">>> ").upper()
+        choice = get_menu_selection(MENU)
     print("Thank you.")
 
 
 def get_valid_input(prompt):
     """Get a valid input from the user."""
     temperature = float(input(prompt))
+
     while temperature != float(temperature):
         print("Invalid input. Please enter a number.")
         temperature = float(input(prompt))
+
     return temperature
 
 
-def convert_temperature(choice, temperature):
-    """Convert temperature from Celsius to Fahrenheit or vice versa."""
-    if choice == "C":
-        converted_temp = temperature * 9.0 / 5 + 32
-    else:
-        converted_temp = 5 / 9 * (temperature - 32)
-    return converted_temp
+def convert_celsius_to_fahrenheit(temperature):
+    """Convert temperature from Celsius to Fahrenheit."""
+    return temperature * 9.0 / 5 + 32
+
+
+def convert_fahrenheit_to_celsius(temperature):
+    """Convert temperature from Fahrenheit to Celsius."""
+    return 5 / 9 * (temperature - 32)
+
+
+def get_menu_selection(prompt):
+    """Get a valid menu selection input from the user."""
+    print(prompt)
+    choice = choice = input(">>> ").upper()
+
+    while choice != "Q" and choice != "C" and choice != "F":
+        print(f"\nInvalid choice. Please choose between: \n{MENU}")
+        choice = input(">>> ").upper()
+    return choice
 
 
 main()
