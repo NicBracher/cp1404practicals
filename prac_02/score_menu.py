@@ -24,7 +24,8 @@ def main():
 
         elif choice == "P":
             if user_score == None:
-                choice = get_menu_selection("Please input your score first. \n")
+                choice = get_menu_selection(
+                    "Please input your score first. \n")
             else:
                 grade = calculate_grade(user_score)
                 print(f"\n-> Score: {user_score} \n-> Grade: {grade}")
@@ -32,7 +33,8 @@ def main():
 
         elif choice == "S":
             if user_score == None:
-                choice = get_menu_selection("Please input your score first. \n")
+                choice = get_menu_selection(
+                    "Please input your score first. \n")
             else:
                 print("*" * user_score)
                 choice = get_menu_selection(MENU)

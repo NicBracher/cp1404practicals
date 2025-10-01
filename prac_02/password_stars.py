@@ -16,7 +16,8 @@ def main():
 def get_valid_password():
     """Get a valid password from the user."""
 
-    password = input(f"Enter password of atleast {MINIMUM_LENGTH} characters: ")
+    password = input(
+        f"Enter password of atleast {MINIMUM_LENGTH} characters: ")
     while len(password) < MINIMUM_LENGTH:
         print(f"Password must be at least {MINIMUM_LENGTH} characters long.")
         password = input("Enter password: ")
