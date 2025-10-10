@@ -14,14 +14,14 @@ def main():
     """Use user input to generate quick pick numbers within given range for lottery."""
     number_of_quick_picks = get_valid_number("How many quick picks? ", 0)
     for i in range(number_of_quick_picks):
-        numbers = []
+        quick_pick_numbers = []
         for j in range(NUMBERS_PER_LINE):
             number = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
-            while number in numbers:
+            while number in quick_pick_numbers:
                 number = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
-            numbers.append(number)
-            numbers.sort()
-        print(" ".join(f"{number:2}" for number in numbers))
+            quick_pick_numbers.append(number)
+            quick_pick_numbers.sort()
+        print(" ".join(f"{number:2}" for number in quick_pick_numbers))
 
 
 def get_valid_number(prompt, low):
