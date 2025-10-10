@@ -1,1 +1,2 @@
 # Practical 04
+I do shift-work at work and tend to do my practicals at work during down time, but due to policy I can't use a Git repo on my work computer but I can log into GitHub and use VSCode so if you're wondering why all the commits are within a few seconds of each other its because I'm downloading the programs onto my personal laptop, commiting them to my Git repo then syncing to GitHub.
