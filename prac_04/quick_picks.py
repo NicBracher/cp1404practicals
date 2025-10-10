@@ -27,7 +27,7 @@ def main():
 def get_valid_number(prompt, low):
     """Get a valid number from the user."""
     number = int(input(prompt))
-    while number < low:
+    while number <= low:
         print(f"Invalid score. Please enter a number above {low}.")
         number = int(input(prompt))
     return number
