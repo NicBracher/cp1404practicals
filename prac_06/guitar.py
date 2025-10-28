@@ -1,7 +1,7 @@
 """
 CP1404/CP5632 Practical - Nicolas Bracher
 Time estimate: 45 minutes
-Time actual:
+Time actual: 52 minutes
 """
 
 CURRENT_YEAR = 2025
