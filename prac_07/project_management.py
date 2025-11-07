@@ -53,10 +53,11 @@ U - Update project
 Q - Quit
 """
 
+
 def main():
     """Manage a list of projects."""
     projects = load_file_contents(FILENAME)
-    print("Welcome to Project Management System")
+    print("Welcome to Pythonic Project Management")
     print(MENU)
     choice = input(">>> ").upper().strip()
 
@@ -73,7 +74,8 @@ def main():
             display_projects(projects)
 
         elif choice == "F":
-            date_string = input("Show projects that start after date (d/m/yyyy): ")
+            date_string = input(
+                "Show projects that start after date (d/m/yyyy): ")
             date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
             filter_projects_by_date(projects, date)
 
@@ -89,7 +91,8 @@ def main():
 
         print(MENU)
         choice = input(">>> ").upper().strip()
-    
+
+
 def load_file_contents(filename):
     """Load projects from a file and return a list of Project objects."""
     projects = []
@@ -98,14 +101,70 @@ def load_file_contents(filename):
         for line in in_file:
             parts = line.strip().split('\t')
             name = parts[0]
-            start_date = datetime.datetime.strptime(parts[1], "%d/%m/%Y").date()
+            start_date = datetime.datetime.strptime(
+                parts[1], "%d/%m/%Y").date()
             priority = int(parts[2])
             cost_estimate = float(parts[3])
             percent_complete = int(parts[4])
-            project = Project(name, start_date, priority, cost_estimate, percent_complete)
+            project = Project(name, start_date, priority,
+                              cost_estimate, percent_complete)
             projects.append(project)
 
     return projects
+
+
+def display_projects(projects):
+    """Display incomplete and completed projects sorted by priority."""
+    print("Incomplete projects:")
+    
+    print("Completed projects:")
+    
+
+
+def filter_projects_by_date(projects, date):
+    """Display projects that start after a given date, sorted by date."""
+    
+
+
+def get_user_input():
+    """Get user input for a new project and return a Project object."""
+    name = input("Project name: ")
+    date_string = input("Start date (d/m/yyyy): ")
+    start_date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+    priority = int(input("Priority: "))
+    cost_estimate = float(input("Cost estimate: $"))
+    percent_complete = int(input("Percent complete: "))
+    return Project(name, start_date, priority, cost_estimate, percent_complete)
+
+
+def update_project(projects):
+    """Update a project's percent complete and/or priority."""
+    for i, project in enumerate(projects):
+        print(f"{i} {project}")
+    index = int(input("Project number to update: "))
+    project = projects[index]
+
+    new_percent = input("New percent complete (leave blank to keep current): ")
+    if new_percent:
+        project.percent_complete = int(new_percent)
+
+    new_priority = input("New priority (leave blank to keep current): ")
+    if new_priority:
+        project.priority = int(new_priority)
+
+
+def write_to_file(filename, projects):
+    """Write the list of projects to a file."""
+    with open(filename, 'w') as out_file:
+        out_file.write(
+            "Name\tStart Date\tPriority\tCost Estimate\tPercent Complete\n")
+        for project in projects:
+            out_file.write(f"{project.name}\t{project.start_date.strftime('%d/%m/%Y')}\t"
+                           f"{project.priority}\t{project.cost_estimate}\t{project.percent_complete}\n")
+
+
+if __name__ == "__main__":
+    main()
 
    """display menu
     get choice
