@@ -10,31 +10,22 @@
 ## Practicals
   [Practical 1](https://github.com/NicBracher/cp1404practicals/tree/master/prac_01)
     Notes: Don't user i + 1 inside for loop for counting, just set i to 1 at the start
-    
   [Practical 2](https://github.com/NicBracher/cp1404practicals/tree/master/prac_02)
     Notes: Following patterns, don't try to reinvent the wheel
-    
   [Practical 3](https://github.com/NicBracher/cp1404practicals/tree/master/prac_03)
     Notes: Be careful using with for file processing, make sure only the required items are within the 'with'
-    
   [Practical 4](https://github.com/NicBracher/cp1404practicals/tree/master/prac_04)
     Notes: Watch the plural naming, its better to sound a bit weird then be misleading
-    
   [Practical 5](https://github.com/NicBracher/cp1404practicals/tree/master/prac_05)
     Notes: len is moer effecient then sum
-    
   [Practical 6](https://github.com/NicBracher/cp1404practicals/tree/master/prac_06)
     Notes: Utilise the in condition when dealing with boolean logic, no need to always declare a variable
-    
   [Practical 7](https://github.com/NicBracher/cp1404practicals/tree/master/prac_07)
     Notes:
-    
   [Practical 8](https://github.com/NicBracher/cp1404practicals/tree/master/prac_08)
     Notes:
-    
   [Practical 9](https://github.com/NicBracher/cp1404practicals/tree/master/prac_09)
     Notes:
-    
   [Practical 10](https://github.com/NicBracher/cp1404practicals/tree/master/prac_10)
     Notes:
 
