@@ -41,6 +41,7 @@ print(date.strftime("%d/%m/%Y"))
 
 from project import Project
 import datetime
+from operator import attrgetter
 
 FILENAME = "projects.txt"
 MENU = """Menu:
@@ -55,11 +56,11 @@ Q - Quit
 
 
 def main():
-    """Manage a list of projects."""
+    """Menu-driven project management program with function call and class objects."""
     projects = load_file_contents(FILENAME)
     print("Welcome to Pythonic Project Management")
     print(MENU)
-    choice = input(">>> ").upper().strip()
+    choice = input(">>> ").upper()
 
     while choice != "Q":
         if choice == "L":
@@ -90,19 +91,25 @@ def main():
             print("Invalid menu choice")
 
         print(MENU)
-        choice = input(">>> ").upper().strip()
+        choice = input(">>> ").upper()
+
+    choice = input(f"Would you like to save to {FILENAME}? (Y/N): ").upper()
+    if choice == "Y":
+        write_to_file(FILENAME, projects)
+    else:
+        print("Thank you for using custom-built project management software.")
 
 
 def load_file_contents(filename):
     """Load projects from a file and return a list of Project objects."""
     projects = []
     with open(filename, 'r') as in_file:
-        next(in_file)  # Skip header line
+        in_file.readline()  # Skip header line
         for line in in_file:
-            parts = line.strip().split('\t')
+            parts = line.strip().split('\t')  # Split by tab
             name = parts[0]
             start_date = datetime.datetime.strptime(
-                parts[1], "%d/%m/%Y").date()
+                parts[1], "%d/%m/%Y").date()  # datetime module converting second index string to date
             priority = int(parts[2])
             cost_estimate = float(parts[3])
             percent_complete = int(parts[4])
@@ -116,18 +123,28 @@ def load_file_contents(filename):
 def display_projects(projects):
     """Display incomplete and completed projects sorted by priority."""
     print("Incomplete projects:")
-    
+    incomplete_projects = sorted(
+        [project for project in projects if project.percent_complete < 100], key=attrgetter('priority'))
+    for project in incomplete_projects:
+        print(project)
+
     print("Completed projects:")
-    
+    completed_projects = sorted(
+        [project for project in projects if project.percent_complete == 100], key=attrgetter('priority'))
+    for project in completed_projects:
+        print(project)
 
 
 def filter_projects_by_date(projects, date):
     """Display projects that start after a given date, sorted by date."""
-    
+    filtered_projects = sorted(
+        [project for project in projects if project.start_date > date], key=attrgetter('start_date'))
+    for project in filtered_projects:
+        print(project)
 
 
 def get_user_input():
-    """Get user input for a new project and return a Project object."""
+    """Get user input for a new project and return that input as a new Project object."""
     name = input("Project name: ")
     date_string = input("Start date (d/m/yyyy): ")
     start_date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
@@ -157,7 +174,7 @@ def write_to_file(filename, projects):
     """Write the list of projects to a file."""
     with open(filename, 'w') as out_file:
         out_file.write(
-            "Name\tStart Date\tPriority\tCost Estimate\tPercent Complete\n")
+            "Name\tStart Date\tPriority\tCost Estimate\tPercent Complete\n")  # Header line, tab-delimited
         for project in projects:
             out_file.write(f"{project.name}\t{project.start_date.strftime('%d/%m/%Y')}\t"
                            f"{project.priority}\t{project.cost_estimate}\t{project.percent_complete}\n")
@@ -165,19 +182,3 @@ def write_to_file(filename, projects):
 
 if __name__ == "__main__":
     main()
-
-   """display menu
-    get choice
-    while choice != <quit option>
-        if choice == <first option>
-            <do first task>
-        else if choice == <second option>
-            <do second task>
-        ...
-        else if choice == <n-th option>
-            <do n-th task>
-        else
-            display invalid input error message
-        display menu
-        get choice
-    <do final thing, if needed>"""
